@@ -1,4 +1,4 @@
-FROM node:18 AS build
+FROM node:16-bullseye-slim AS build
 
 WORKDIR /app
 
@@ -8,6 +8,8 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
 RUN npm run build
 
 FROM nginx:alpine
@@ -15,3 +17,5 @@ FROM nginx:alpine
 COPY --from=build /app/docs /usr/share/nginx/html
 
 EXPOSE 80
+
+CMD ["nginx","-g","daemon off;"]
