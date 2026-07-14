@@ -8,7 +8,7 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-ENV NODE_OPTIONS=--openssl-legacy-provider
+RUN node -v
 
 RUN npm run build
 
