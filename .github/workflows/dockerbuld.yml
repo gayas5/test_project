@@ -1,0 +1,20 @@
+name: Build DOcker image
+on:
+  push:
+    branches:
+      - main
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout Repository
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build Docker Image
+        run: |
+          pwd
+          docker build -t gayaz:latest ./backend/
+      - name: Verify Image
+        run: |
+          docker images
